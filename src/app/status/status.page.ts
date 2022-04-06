@@ -16,14 +16,14 @@ export class StatusPage implements OnInit {
   async ionViewWillEnter() {
     await this.storage.create();
     this.myStatus = await this.storage.get('status');
+    this.storage.get('status')
+    .then((data)=>{this.myStatus=data})
+    .catch();
   }
 
-  async saveStatus() {
-    await this.storage.set('status', this.myStatus)
-    .then(
-      ()=>{
-        this.navCtrl.navigateBack('/home')
-      })
+  saveStatus() {
+    this.storage.set('status', this.myStatus)
+    .then(()=>{this.navCtrl.navigateBack('/home')})
     .catch();
   }
 
